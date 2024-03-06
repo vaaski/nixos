@@ -10,11 +10,14 @@
   environment.systemPackages = with pkgs; [
     docker
     git
+    gnupg
     nil
     nixpkgs-fmt
-    wget
-    gnupg
+    nodejs_20
+    nodePackages."@antfu/ni"
+    nodePackages.pnpm
     pinentry
+    wget
   ];
 
   programs.bash.shellAliases = {
