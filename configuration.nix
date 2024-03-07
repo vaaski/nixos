@@ -41,11 +41,11 @@ in
       url = "https://github.com/pnpm/pnpm/releases/download/v8.15.4/pnpm-linuxstatic-x64";
       sha256 = "sha256:7d26cc57186850a2d71ab77da7cf52ff0eeabf680ac446c8da2324aa63808aac";
     })
-    # (fetchPackage {
-    #   name = "go-yt-dlp";
-    #   url = "https://github.com/vaaski/go-yt-dlp/releases/download/0.1.1/go-yt-dlp-linux-amd64";
-    #   sha256 = "sha256:cc4e86ae5dcd1e9c02c901b3b9ba1c143b902b4830591cce7a2e0876fed2da2f";
-    # })
+    (fetchPackage {
+      name = "go-yt-dlp";
+      url = "https://github.com/vaaski/go-yt-dlp/releases/download/0.1.2/go-yt-dlp-linux-amd64";
+      sha256 = "sha256:cb57ada7b1aa3db6cd46c200a16f19a59de646f7ecc205d4b54255edf5b01a56";
+    })
   ];
 
   programs.bash.shellAliases = {
