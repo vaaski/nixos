@@ -1,5 +1,20 @@
 { pkgs, ... }:
 
+let
+  fetchPackage = { name, url, sha256 }:
+    (pkgs.stdenv.mkDerivation {
+      name = name;
+      src = pkgs.fetchurl {
+        name = name;
+        url = url;
+        sha256 = sha256;
+      };
+      phases = [ "installPhase" ];
+      installPhase = ''
+        install -D $src $out/bin/$name
+      '';
+    });
+in
 {
   imports =
     [
@@ -15,9 +30,13 @@
     nixpkgs-fmt
     nodejs_20
     nodePackages."@antfu/ni"
-    nodePackages.pnpm
     pinentry
     wget
+    (fetchPackage {
+      name = "pnpm";
+      url = "https://github.com/pnpm/pnpm/releases/download/v8.15.4/pnpm-linuxstatic-x64";
+      sha256 = "sha256:7d26cc57186850a2d71ab77da7cf52ff0eeabf680ac446c8da2324aa63808aac";
+    })
   ];
 
   programs.bash.shellAliases = {
