@@ -4,7 +4,7 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./system-configuration.nix
+      ./system-configuration.nix # system-specific configuration, e.g. hostname
     ];
 
   environment.systemPackages = with pkgs; [
