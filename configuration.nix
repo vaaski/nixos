@@ -24,19 +24,28 @@ in
 
   environment.systemPackages = with pkgs; [
     docker
+    ffmpeg
     git
     gnupg
+    go
+    goreleaser
     nil
     nixpkgs-fmt
     nodejs_20
     nodePackages."@antfu/ni"
     pinentry
     wget
+    yt-dlp
     (fetchPackage {
       name = "pnpm";
       url = "https://github.com/pnpm/pnpm/releases/download/v8.15.4/pnpm-linuxstatic-x64";
       sha256 = "sha256:7d26cc57186850a2d71ab77da7cf52ff0eeabf680ac446c8da2324aa63808aac";
     })
+    # (fetchPackage {
+    #   name = "go-yt-dlp";
+    #   url = "https://github.com/vaaski/go-yt-dlp/releases/download/0.1.1/go-yt-dlp-linux-amd64";
+    #   sha256 = "sha256:cc4e86ae5dcd1e9c02c901b3b9ba1c143b902b4830591cce7a2e0876fed2da2f";
+    # })
   ];
 
   programs.bash.shellAliases = {
