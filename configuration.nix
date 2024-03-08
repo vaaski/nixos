@@ -30,6 +30,7 @@ in
     gnupg
     go
     goreleaser
+    neofetch
     nil
     nixpkgs-fmt
     nodejs_20
