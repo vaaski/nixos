@@ -23,6 +23,7 @@ in
     ];
 
   environment.systemPackages = with pkgs; [
+    btop
     docker
     ffmpeg
     git
