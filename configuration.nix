@@ -38,7 +38,6 @@ in
     pinentry
     starship
     wget
-    yt-dlp
     (fetchPackage {
       name = "pnpm";
       url = "https://github.com/pnpm/pnpm/releases/download/v8.15.4/pnpm-linuxstatic-x64";
@@ -48,6 +47,11 @@ in
       name = "go-yt-dlp";
       url = "https://github.com/vaaski/go-yt-dlp/releases/download/0.1.2/go-yt-dlp-linux-amd64";
       sha256 = "sha256:cb57ada7b1aa3db6cd46c200a16f19a59de646f7ecc205d4b54255edf5b01a56";
+    })
+    (fetchPackage {
+      name = "yt-dlp";
+      url = "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux";
+      sha256 = "sha256:b188523119e0a4368f53e11ad0f223c7ed44a8a28663e4b6c205122da037f47b";
     })
   ];
 
