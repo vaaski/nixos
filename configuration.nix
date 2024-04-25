@@ -25,6 +25,7 @@ in
   environment.systemPackages = with pkgs; [
     btop
     docker
+    du-dust
     ffmpeg
     git
     gnupg
@@ -50,8 +51,8 @@ in
     })
     (fetchPackage {
       name = "yt-dlp";
-      url = "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux";
-      sha256 = "sha256:b188523119e0a4368f53e11ad0f223c7ed44a8a28663e4b6c205122da037f47b";
+      url = "https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2024.04.21.232710/yt-dlp_linux";
+      sha256 = "sha256:efa12d8c8e49e4c94f188b4cf0da1bf4f0328df9b30e97b0aaaa4c30822c8ef5";
     })
   ];
 

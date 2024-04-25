@@ -1,2 +1,4 @@
 *.nix
 !configuration.nix
+smb-secrets
+Caddyfile
