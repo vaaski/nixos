@@ -20,6 +20,7 @@ in
     [
       ./hardware-configuration.nix
       ./system-configuration.nix # system-specific configuration, e.g. hostname
+      ./raid.nix
     ];
 
   environment.systemPackages = with pkgs; [
@@ -31,6 +32,7 @@ in
     gnupg
     go
     goreleaser
+    mdadm
     neofetch
     nil
     nixpkgs-fmt

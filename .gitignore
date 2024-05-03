@@ -1,8 +1,2 @@
-*.nix
-!configuration.nix
-!system-configuration.nix
-
-Caddyfile
-
+hardware-configuration.nix
 smb-secrets
-samba-dfree/main
