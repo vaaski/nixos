@@ -53,17 +53,24 @@ in
     })
     (fetchPackage {
       name = "yt-dlp";
-      url = "https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2024.04.21.232710/yt-dlp_linux";
-      sha256 = "sha256:efa12d8c8e49e4c94f188b4cf0da1bf4f0328df9b30e97b0aaaa4c30822c8ef5";
+      url = "https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2024.05.05.232701/yt-dlp_linux";
+      sha256 = "sha256:11de8345d1bd6f50e6d18be079054b18c842446e3c58fc5114a94d351ea88cbc";
     })
   ];
 
-  programs.bash.shellAliases = {
-    r = "sudo nixos-rebuild switch";
-    ll = "ls -lhFG";
-    la = "ll -A";
-    localip = "ip -4 addr show scope global | grep inet | awk '{print $2}' | cut -d'/' -f1";
-    publicip = "curl -4 -s ifconfig.co";
+  programs.bash = {
+    shellAliases = {
+      r = "sudo nixos-rebuild switch";
+      ll = "ls -lhFG";
+      la = "ll -A";
+      localip = "ip -4 addr show scope global | grep inet | awk '{print $2}' | cut -d'/' -f1";
+      publicip = "curl -4 -s ifconfig.co";
+    };
+    promptInit = ''
+      url256sum() {
+        wget -qO- "$1" | sha256sum | cut -d " " -f1;
+      }
+    '';
   };
 
   virtualisation.docker.enable = true; # needed for docker
