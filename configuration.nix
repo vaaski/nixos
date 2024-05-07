@@ -14,6 +14,7 @@ let
         install -D $src $out/bin/$name
       '';
     });
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 in
 {
   imports =
@@ -41,11 +42,10 @@ in
     pinentry
     starship
     wget
-    (fetchPackage {
-      name = "pnpm";
-      url = "https://github.com/pnpm/pnpm/releases/download/v8.15.4/pnpm-linuxstatic-x64";
-      sha256 = "sha256:7d26cc57186850a2d71ab77da7cf52ff0eeabf680ac446c8da2324aa63808aac";
-    })
+
+    unstable.bun
+    unstable.nodePackages.pnpm
+
     (fetchPackage {
       name = "go-yt-dlp";
       url = "https://github.com/vaaski/go-yt-dlp/releases/download/0.1.2/go-yt-dlp-linux-amd64";
