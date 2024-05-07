@@ -44,8 +44,12 @@ in
     wget
 
     unstable.bun
-    unstable.nodePackages.pnpm
 
+    (fetchPackage {
+      name = "pnpm";
+      url = "https://github.com/pnpm/pnpm/releases/download/v9.1.0/pnpm-linuxstatic-x64";
+      sha256 = "sha256:b7e518aa9c63ab297ff9afa0121bc4771b76fd8577c83a492eb6672a603fadd6";
+    })
     (fetchPackage {
       name = "go-yt-dlp";
       url = "https://github.com/vaaski/go-yt-dlp/releases/download/0.1.2/go-yt-dlp-linux-amd64";
