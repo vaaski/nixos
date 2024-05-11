@@ -41,6 +41,7 @@ in
     nodePackages."@antfu/ni"
     pinentry
     starship
+    tree
     wget
 
     unstable.bun
@@ -73,6 +74,18 @@ in
     promptInit = ''
       url256sum() {
         wget -qO- "$1" | sha256sum | cut -d " " -f1;
+      }
+
+      # tree alias defaulting to depth of 1 unless first arg is number
+      t() {
+        if [[ ! "$1" =~ ^[0-9]+$ ]]; then
+          level=1
+        else
+          level="$1"
+          shift
+        fi
+
+        tree -L "$level" "$@"
       }
     '';
   };
