@@ -24,8 +24,8 @@
       device = "/dev/md0";
       fsType = "ext4";
     };
-    "/media/hserver-static" = {
-      device = "//192.168.88.100/static";
+    "/media/hserver-home" = {
+      device = "//192.168.88.100/o";
       fsType = "cifs";
       options =
         let
