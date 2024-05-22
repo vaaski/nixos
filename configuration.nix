@@ -40,6 +40,7 @@ in
     nodejs_20
     nodePackages."@antfu/ni"
     pinentry
+    screen
     starship
     tree
     wget
@@ -70,6 +71,7 @@ in
       la = "ll -A";
       localip = "ip -4 addr show scope global | grep inet | awk '{print $2}' | cut -d'/' -f1";
       publicip = "curl -4 -s ifconfig.co";
+      copy = "rsync -a --progress";
     };
     promptInit = ''
       url256sum() {
@@ -86,6 +88,15 @@ in
         fi
 
         tree -L "$level" "$@"
+      }
+
+      move() {
+        [ "$#" -eq 0 ] && echo "No input files" && exit 1
+        rsync -aP --remove-source-files "$@" && rm -rf "$\{@:1:$#-1}"
+      }
+
+      attach() {
+        docker attach $(docker ps | grep $1 | awk '{print $1}')
       }
     '';
   };
