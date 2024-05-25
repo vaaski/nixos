@@ -40,6 +40,7 @@ in
     nodejs_20
     nodePackages."@antfu/ni"
     pinentry
+    python3
     screen
     starship
     tree
@@ -59,8 +60,8 @@ in
     })
     (fetchPackage {
       name = "yt-dlp";
-      url = "https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2024.05.05.232701/yt-dlp_linux";
-      sha256 = "sha256:11de8345d1bd6f50e6d18be079054b18c842446e3c58fc5114a94d351ea88cbc";
+      url = "https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2024.05.23.232707/yt-dlp";
+      sha256 = "sha256:0687cf97e5aceb1d4a5a55e304d06f23b5a83d8a551d192364fb5ac1c3e5b6be";
     })
   ];
 
