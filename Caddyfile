@@ -3,7 +3,7 @@
 	handle_path /legalshare/* {
 		root * /media/raids/legalshare
 		file_server {
-			browse /home/o/caddy_file_server.html
+			browse /home/o/nixos/caddy_file_server.html
 			hide node_modules .git ._* .DS_Store
 		}
 		header ?Access-Control-Allow-Origin *
