@@ -33,6 +33,7 @@ in
     gnupg
     go
     goreleaser
+    lazydocker
     mdadm
     neofetch
     nil
@@ -73,6 +74,7 @@ in
       localip = "ip -4 addr show scope global | grep inet | awk '{print $2}' | cut -d'/' -f1";
       publicip = "curl -4 -s ifconfig.co";
       copy = "rsync -a --progress";
+      lzd = "lazydocker";
     };
     promptInit = ''
       url256sum() {
