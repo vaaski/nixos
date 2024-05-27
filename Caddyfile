@@ -1,13 +1,3 @@
 :80 {
-	redir /legalshare /legalshare/ permanent
-	handle_path /legalshare/* {
-		root * /media/raids/legalshare
-		file_server {
-			browse /home/o/nixos/caddy_file_server.html
-			hide node_modules .git ._* .DS_Store
-		}
-		header ?Access-Control-Allow-Origin *
-	}
-
-	respond "FORTNITE 2!!!!"
+	respond "FORTNITE 3!!!!"
 }
