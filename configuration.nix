@@ -61,8 +61,8 @@ in
     })
     (fetchPackage {
       name = "yt-dlp";
-      url = "https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2024.05.23.232707/yt-dlp";
-      sha256 = "sha256:0687cf97e5aceb1d4a5a55e304d06f23b5a83d8a551d192364fb5ac1c3e5b6be";
+      url = "https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2024.06.21.232706/yt-dlp";
+      sha256 = "sha256:332108860488419cf108693870bcd653b1b9877babfcb1d7e7004ac5c28e930c";
     })
   ];
 
