@@ -45,6 +45,7 @@ in
     screen
     starship
     tree
+    unar
     wget
 
     unstable.bun
