@@ -1,2 +1,4 @@
 hardware-configuration.nix
 smb-secrets
+tgnotify-apikey
+tgnotify-chatid

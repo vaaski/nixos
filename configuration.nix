@@ -102,6 +102,12 @@ in
       attach() {
         docker attach $(docker ps | grep $1 | awk '{print $1}')
       }
+
+      tgnotify() {
+        apikey=$(cat /home/o/nixos/tgnotify-apikey)
+        chatid=$(cat /home/o/nixos/tgnotify-chatid)
+        curl -X POST -d "chat_id=$chatid&text=$1&parse_mode=HTML&disable_web_page_preview=true" "https://api.telegram.org/bot$apikey/sendMessage"
+      }
     '';
   };
 
