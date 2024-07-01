@@ -108,6 +108,11 @@ in
         chatid=$(cat /home/o/nixos/tgnotify-chatid)
         curl -X POST -d "chat_id=$chatid&text=$1&parse_mode=HTML&disable_web_page_preview=true" "https://api.telegram.org/bot$apikey/sendMessage"
       }
+
+      # check what process is listening on a port
+      whatport() {
+        sudo ss -lptn | grep ":$1 "
+      }
     '';
   };
 
