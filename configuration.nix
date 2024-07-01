@@ -82,10 +82,10 @@ in
         wget -qO- "$1" | sha256sum | cut -d " " -f1;
       }
 
-      # tree alias defaulting to depth of 1 unless first arg is number
+      # tree alias defaulting to depth of 2 unless first arg is number
       t() {
         if [[ ! "$1" =~ ^[0-9]+$ ]]; then
-          level=1
+          level=2
         else
           level="$1"
           shift
