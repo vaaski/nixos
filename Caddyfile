@@ -1,12 +1,149 @@
-:80 {
-	respond "FORTNITE 3!!!!"
+{
+	servers {
+		trusted_proxies static private_ranges
+	}
 }
 
-:8666 {
-	root * /media/raids/legalshare
+(sso_hauth) {
+	forward_auth :9099 {
+		uri /api/authz/forward-auth
+		copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+	}
+}
+
+(filesserver) {
 	file_server {
-		browse #/home/o/nixos/caddy_file_server.html
+		browse /home/o/nixos/caddy_file_server.html
 		hide node_modules .git ._* .DS_Store
 	}
 	header ?Access-Control-Allow-Origin *
+}
+
+:80 {
+	redir / http://192.168.88.100:5005 # flame server dashboard
+
+	redir /homebridge http://192.168.88.100:8581
+	redir /wled http://192.168.88.47
+	redir /immich http://192.168.88.100:2283
+
+	redir /transmission :9091
+	redir /jdownloader :5800
+	redir /sonarr :8989
+	redir /radarr :7878
+	redir /prowlarr :9696
+	redir /changedetection http://192.168.88.100:2365
+	redir /portainer http://192.168.88.100:9000
+
+	redir /legalshare /legalshare/ permanent
+	handle_path /legalshare/* {
+		reverse_proxy :8666
+	}
+
+	redir /static /static/ permanent
+	handle_path /static/* {
+		reverse_proxy :8667
+	}
+
+	respond "piss off"
+}
+
+# --------------------------------------------------------------
+# authentication
+
+hauth.vaaski.dev {
+	reverse_proxy :9099
+}
+
+# --------------------------------------------------------------
+# file hosting
+
+# legalshare
+:8666 {
+	root * /media/raids/legalshare
+	import filesserver
+}
+
+# static
+:8667 {
+	root * /home/o/static
+	import filesserver
+}
+
+static.vaaski.dev {
+	reverse_proxy :8667
+}
+
+# --------------------------------------------------------------
+# "legal" media stuff
+
+jelly.vaaski.dev {
+	reverse_proxy :8096
+}
+
+seerr.vaaski.dev {
+	reverse_proxy :5055
+}
+
+transmission.vaaski.dev {
+	import sso_hauth
+	reverse_proxy :9091
+}
+
+jdownloader.vaaski.dev {
+	import sso_hauth
+	reverse_proxy :5800
+}
+
+legalshare.vaaski.dev {
+	import sso_hauth
+	reverse_proxy :8666
+}
+
+sonarr.vaaski.dev {
+	import sso_hauth
+	reverse_proxy :8989
+}
+
+radarr.vaaski.dev {
+	import sso_hauth
+	reverse_proxy :7878
+}
+
+prowlarr.vaaski.dev {
+	import sso_hauth
+	reverse_proxy :9696
+}
+
+# --------------------------------------------------------------
+# other
+
+home.vaaski.dev {
+	import sso_hauth
+	reverse_proxy http://192.168.88.100:6006
+}
+
+immich.vaaski.dev {
+	reverse_proxy :2283
+}
+
+map.shr.li {
+	reverse_proxy :8100
+}
+
+portainer.vaaski.dev {
+	reverse_proxy http://192.168.88.100:9000
+}
+
+files.vaaski.dev {
+	reverse_proxy :6846
+}
+
+tesla.vaaski.dev {
+	reverse_proxy http://192.168.88.100:3000
+}
+
+octoprint.vaaski.dev {
+	reverse_proxy http://octopi {
+		header_up X-Scheme {scheme}
+	}
 }
