@@ -5,17 +5,54 @@
 }
 
 (sso_hauth) {
-	@kuma {
-		expression `{header.kuma-auth-token} != "2y0PMCCVfVGTxFQxC81knX0lDYDkv4NWi7FoDDZkJtt1Ko3Ok7OzVt0XrR6F1L10"`
-	}
+	@kuma `{header.kuma-auth-token} != "2y0PMCCVfVGTxFQxC81knX0lDYDkv4NWi7FoDDZkJtt1Ko3Ok7OzVt0XrR6F1L10"`
 
-	forward_auth @kuma :9099 {
-		uri /api/authz/forward-auth
-		copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+	# forward_auth @kuma :9099 {
+	# 	uri /api/authz/forward-auth
+	# 	copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+	# }
+
+	reverse_proxy @kuma :9099 {
+		method GET
+		rewrite /api/authz/forward-auth
+
+		header_up X-Forwarded-Method {method}
+		header_up X-Forwarded-Uri {uri}
+
+		@good status 2xx
+		handle_response @good {
+			request_header Remote-User {rp.header.Remote-User}
+			request_header Remote-Groups {rp.header.Remote-Groups}
+			request_header Remote-Email {rp.header.Remote-Email}
+			request_header Remote-Name {rp.header.Remote-Name}
+		}
+
+		@forbidden status 403
+		handle_response @forbidden {
+			header Content-Type text/html
+			respond <<HTML
+			<html>
+			<head><title>Forbidden</title></head>
+			<body>
+			<h1>Forbidden</h1>
+			<p>You are not allowed to access this resource.</p>
+			<p><a id="logout" href="https://hauth.vaaski.dev/logout">Log out</a> and try again.</p>
+			<script>
+			logout.href = logout.href + "?rd=" + encodeURIComponent(window.location.href);
+			</script>
+			<style>
+			* {
+				font-family: sans-serif;
+			}
+			</style>
+			</body>
+			</html>
+			HTML 200
+		}
 	}
 }
 
-(filesserver) {
+(fileserver) {
 	file_server {
 		browse /home/o/nixos/caddy_file_server.html
 		hide node_modules .git ._* .DS_Store
@@ -64,13 +101,13 @@ hauth.vaaski.dev {
 # legalshare
 :8666 {
 	root * /media/raids/legalshare
-	import filesserver
+	import fileserver
 }
 
 # static
 :8667 {
 	root * /home/o/static
-	import filesserver
+	import fileserver
 }
 
 static.vaaski.dev {
