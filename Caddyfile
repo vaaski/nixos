@@ -5,7 +5,11 @@
 }
 
 (sso_hauth) {
-	forward_auth :9099 {
+	@kuma {
+		expression `{header.kuma-auth-token} != "2y0PMCCVfVGTxFQxC81knX0lDYDkv4NWi7FoDDZkJtt1Ko3Ok7OzVt0XrR6F1L10"`
+	}
+
+	forward_auth @kuma :9099 {
 		uri /api/authz/forward-auth
 		copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
 	}
